@@ -136,7 +136,7 @@ spendsync/
 | Obszar | Osoba |
 | --- | --- |
 | Backend, REST API, model bazy, uwierzytelnianie JWT, testy | Maciej Ciężarek 52655, Patryk Piszczek 52767
-| Frontend PWA, IndexedDB, Service Worker, silnik synchronizacji Maciej Ciężarek 52655, Patryk Piszczek 52767
+| Frontend PWA, IndexedDB, Service Worker, silnik synchronizacji | Maciej Ciężarek 52655, Patryk Piszczek 52767
 | Dokumentacja, Docker, integracja | Maciej Ciężarek 52655, Patryk Piszczek 52767
 
 ## Pokrycie wymagań projektu
