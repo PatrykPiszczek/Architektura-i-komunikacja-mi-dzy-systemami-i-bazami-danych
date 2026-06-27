@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="theme-color" content="#0e8c6b">
+  <title>SpendSync</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <section id="login-view" class="login-view">
+    <div class="login-card">
+      <div class="brand">
+        <span class="brand-mark">S</span>
+        <span class="brand-name">SpendSync</span>
+      </div>
+      <p class="login-tagline">Zapisuj wydatki — nawet bez internetu.</p>
+
+      <div id="login-error" class="form-error" hidden></div>
+
+      <label class="field">
+        <span>Email</span>
+        <input id="login-email" type="email" autocomplete="email" placeholder="ty@example.com">
+      </label>
+      <label class="field">
+        <span>Hasło</span>
+        <input id="login-password" type="password" autocomplete="current-password" placeholder="••••••">
+      </label>
+
+      <div id="register-fields" hidden>
+        <label class="field">
+          <span>Nazwa</span>
+          <input id="register-name" type="text" autocomplete="name" placeholder="Jak się do Ciebie zwracać?">
+        </label>
+      </div>
+
+      <button id="login-submit" class="btn btn-primary btn-block">Zaloguj się</button>
+      <button id="toggle-mode" class="btn-link">Nie masz konta? Zarejestruj się</button>
+
+      <p class="login-demo">Konto demo: <code>demo@spendsync.pl</code> / <code>demo1234</code></p>
+    </div>
+  </section>
+
+  <div id="app-view" class="app-view" hidden>
+    <header class="topbar">
+      <div class="topbar-left">
+        <span class="brand-mark small">S</span>
+        <span class="brand-name">SpendSync</span>
+      </div>
+      <div class="topbar-right">
+        <span id="sync-pill" class="sync-pill" data-state="online">
+          <span class="sync-dot"></span><span id="sync-label">Online</span>
+        </span>
+        <button id="logout-btn" class="btn-icon" aria-label="Wyloguj"><span>Wyloguj</span></button>
+      </div>
+    </header>
+
+    <main class="content">
+      <section class="summary">
+        <div class="summary-card total">
+          <span class="summary-label">Wydatki w tym miesiącu</span>
+          <span id="month-total" class="amount big">0,00 zł</span>
+          <span id="month-period" class="summary-sub"></span>
+        </div>
+        <div class="summary-card budgets">
+          <div class="summary-head">
+            <span class="summary-label">Budżety</span>
+            <button id="add-budget-btn" class="btn-link small">+ Budżet</button>
+          </div>
+          <div id="budget-list" class="budget-list">
+            <p class="muted">Brak budżetów na ten miesiąc.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats">
+        <div class="summary-card">
+          <span class="summary-label">Wydatki wg kategorii (ten miesiąc)</span>
+          <div id="chart-categories" class="chart"></div>
+        </div>
+        <div class="summary-card">
+          <span class="summary-label">Ostatnie 6 miesięcy</span>
+          <div id="chart-months" class="chart"></div>
+        </div>
+      </section>
+
+      <section class="filters">
+        <input id="filter-q" type="search" placeholder="Szukaj w opisie…">
+        <select id="filter-category"><option value="">Wszystkie kategorie</option></select>
+        <input id="filter-from" type="date" aria-label="Data od">
+        <input id="filter-to" type="date" aria-label="Data do">
+        <input id="filter-min" type="number" min="0" step="0.01" placeholder="kwota od" aria-label="Kwota od">
+        <input id="filter-max" type="number" min="0" step="0.01" placeholder="kwota do" aria-label="Kwota do">
+        <button id="filter-clear" class="btn-link small">Wyczyść</button>
+      </section>
+
+      <section class="list-section">
+        <div class="list-head">
+          <h2>Wydatki</h2>
+          <button id="manage-categories-btn" class="btn-link small">Kategorie</button>
+        </div>
+        <div id="expense-list" class="expense-list"></div>
+        <p id="empty-state" class="empty-state" hidden>Brak wydatków. Dodaj pierwszy przyciskiem poniżej.</p>
+      </section>
+    </main>
+
+    <button id="add-expense-btn" class="fab" aria-label="Dodaj wydatek">+</button>
+  </div>
+
+  <div id="modal-backdrop" class="modal-backdrop" hidden>
+    <div class="modal" role="dialog" aria-modal="true">
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <script src="./js/api.js"></script>
+  <script src="./js/db.js"></script>
+  <script src="./js/auth.js"></script>
+  <script src="./js/sync.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>
